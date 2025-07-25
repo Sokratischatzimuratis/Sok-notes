@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Οι Σημειώσεις μου</title>
+  <style>
+    body { font-family: sans-serif; background: #f1f1f1; padding: 20px; }
+    h1 { color: #333; }
+    #noteInput { width: 100%; padding: 10px; }
+    #notes { margin-top: 20px; }
+    .note { background: #fff; padding: 10px; margin-bottom: 10px; border-radius: 6px; position: relative; }
+    .deleteBtn { position: absolute; right: 10px; top: 10px; background: red; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Οι Σημειώσεις μου 📝</h1>
+  <input type="text" id="noteInput" placeholder="Γράψε μια σημείωση..." />
+  <button onclick="addNote()">Προσθήκη</button>
+  <div id="notes"></div>
+
+  <script>
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+    function displayNotes() {
+      const notesDiv = document.getElementById("notes");
+      notesDiv.innerHTML = "";
+      notes.forEach((note, index) => {
+        const noteElement = document.createElement("div");
+        noteElement.className = "note";
+        noteElement.innerText = note;
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "✖";
+        deleteBtn.className = "deleteBtn";
+        deleteBtn.onclick = () => {
+          notes.splice(index, 1);
+          saveNotes();
+        };
+        noteElement.appendChild(deleteBtn);
+        notesDiv.appendChild(noteElement);
+      });
+    }
+
+    function addNote() {
+      const input = document.getElementById("noteInput");
+      if (input.value.trim() !== "") {
+        notes.push(input.value.trim());
+        input.value = "";
+        saveNotes();
+      }
+    }
+
+    function saveNotes() {
+      localStorage.setItem("notes", JSON.stringify(notes));
+      displayNotes();
+    }
+
+    displayNotes();
+  </script>
+</body>
+</html>
