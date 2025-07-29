@@ -3,21 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Οι Σημειώσεις μου</title>
+  <title>Το Σημειωματάριο του Σωκράτη</title>
   <style>
-    body { font-family: sans-serif; background: #f1f1f1; padding: 20px; }
-    h1 { color: #333; }
-    #noteInput { width: 100%; padding: 10px; }
-    #notes { margin-top: 20px; }
-    .note { background: #fff; padding: 10px; margin-bottom: 10px; border-radius: 6px; position: relative; }
-    .deleteBtn { position: absolute; right: 10px; top: 10px; background: red; color: white; border: none; cursor: pointer; }
+    :root {
+      --primary-color: #3b82f6;
+      --secondary-color: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      background: #f1f1f1;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      text-align: center;
+      padding: 20px;
+      background: white;
+    }
+
+    header h1 {
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+
+    main {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button.primary {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #notes {
+      margin-top: 20px;
+    }
+
+    .note {
+      background: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      position: relative;
+      word-wrap: break-word;
+    }
+
+    .deleteBtn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 2px 8px;
+    }
+
+    footer p {
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 10px;
+      }
+      button.primary {
+        width: 100%;
+        margin-top: 5px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Οι Σημειώσεις μου 📝</h1>
-  <input type="text" id="noteInput" placeholder="Γράψε μια σημείωση..." />
-  <button onclick="addNote()">Προσθήκη</button>
-  <div id="notes"></div>
+  <header>
+    <h1>Το Σημειωματάριο του Σωκράτη 📝</h1>
+    <p>Μια καθαρή και φιλική εμπειρία για κινητά</p>
+  </header>
+
+  <main>
+    <input type="text" id="noteInput" placeholder="Γράψε μια σημείωση..." />
+    <button onclick="addNote()" class="primary">Προσθήκη</button>
+    <div id="notes"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sokratis</p>
+  </footer>
 
   <script>
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
